@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Travel Plan</title>
+</head>
+<body>
+    <a href="{% url 'travel_dashboard:index' %}">Home</a>
+    <a href="{% url 'login_register:log_out' %}">Log Out</a>
+    <h1>Add a Trip</h1>
+
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{message}}</p>
+    {% endfor %}
+    {% endif %}
+        <form action="{% url 'travel_dashboard:add_plan' %}" method='post'>
+        {% csrf_token %}
+        <p>Destination: <input type="text" name='destination' required></p>
+        <p>Description: <textarea name="plan" rows="5" cols="80" required></textarea></p>
+        <p>Departure Date: <input type="date" name='depDate' value=2017-02-01></p>
+        <p>Arrival Date: <input type="date" name='arrDate' value=2017-02-01></p>
+        <input type="submit" value='Add Plan'>
+
+        </form>
+</body>
+</html>

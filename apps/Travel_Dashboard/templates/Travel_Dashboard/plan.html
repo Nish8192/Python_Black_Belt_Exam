@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View Trip Plan</title>
+</head>
+<body>
+    <a href="{% url 'travel_dashboard:index' %}">Home</a>
+    <a href="{% url 'login_register:log_out' %}">Log Out</a>
+
+
+    <h1>{{trip.destination}}</h1>
+    <p>Planned By: {{trip.users.first_name}}</p>
+    <p>Description: {{trip.plan}}</p>
+    <p>Start Date: {{trip.startDate}}</p>
+    <p>End Date: {{trip.endDate}}</p>
+
+    <h1>Other Users Going</h1>
+    {% for trip in trips %}
+    <p>{{trip.users.first_name}}</p>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Travel Dashboard</title>
+    <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-6uc3{font-weight:bold;background-color:#000000;color:#ffffff;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+</head>
+<body>
+    <a href="{% url 'login_register:log_out' %}">Log Out</a>
+    <h1>Hello {{request.session.log_user_name}}!</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{message}}</p>
+    {% endfor %}
+    {% endif %}
+    <h2>Your Trip Schedules</h2>
+    <table class="tg">
+  <tr>
+    <th class="tg-6uc3">Destination</th>
+    <th class="tg-6uc3">Start Date</th>
+    <th class="tg-6uc3">End Date</th>
+    <th class="tg-6uc3">Plan</th>
+  </tr>
+  {% for trip in trips %}
+  <tr>
+    <td class="tg-yw4l"><a href="{% url 'travel_dashboard:view_plan' id=trip.trips.id %}">{{trip.trips.destination}}</a></td>
+    <td class="tg-yw4l">{{trip.trips.startDate}}</td>
+    <td class="tg-yw4l">{{trip.trips.endDate}}</td>
+    <td class="tg-yw4l">{{trip.trips.plan}}</td>
+  </tr>
+  {% endfor %}
+  </table>
+
+<h1>Other User's Travel Plans</h1>
+  <table class="tg">
+<tr>
+  <th class="tg-6uc3">User Name</th>
+  <th class="tg-6uc3">Destination</th>
+  <th class="tg-6uc3">Start Date</th>
+  <th class="tg-6uc3">End Date</th>
+  <th class="tg-6uc3">Join?</th>
+</tr>
+{% for trip in all_trips %}
+<tr>
+  <td class="tg-yw4l">{{trip.users.first_name}}</td>
+  <td class="tg-yw4l"><a href="{% url 'travel_dashboard:view_plan' id=trip.id %}">{{trip.destination}}</a></td>
+  <td class="tg-yw4l">{{trip.startDate}}</td>
+  <td class="tg-yw4l">{{trip.endDate}}</td>
+  <td class="tg-yw4l"><a href="{% url 'travel_dashboard:join' id=trip.id %}">Join</a></td>
+</tr>
+{% endfor %}
+
+</table>
+<a href="{% url 'travel_dashboard:add_page' %}">Add Travel Plan</a>
+
+
+</body>
+</html>

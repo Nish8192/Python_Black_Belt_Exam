@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login or Register!</title>
+</head>
+<body>
+    Register or Login!
+    <h1>Registration</h1>
+{% if messages %}
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+{% endif %}
+    <form action="{% url 'login_register:create_user' %}" method='post'>
+    {% csrf_token %}
+    First Name: <input type="text" name='first_name' required>
+    Last Name: <input type="text" name='last_name' required>
+    Email Address: <input type="text" name='email_address' required>
+    Password: <input type="password" name='pw' required>
+    Confirm Password: <input type="password" name='pwc' required>
+    Birthday: <input type="date" name='birthday' value=1992-08-01>
+    <input type="submit" value='Create New User'>
+
+    </form>
+    <h1>Log In</h1>
+{% if messages %}
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+{% endif %}
+    <form action="{% url 'login_register:log_in' %}" method='post'>
+    {% csrf_token %}
+    Email Address: <input type="text" name='email_address' required>
+    Password: <input type="password" name='pw' required>
+    <input type="submit" value='Log In'>
+
+    </form>
+
+</body>
+</html>
